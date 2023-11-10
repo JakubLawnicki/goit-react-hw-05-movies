@@ -1,15 +1,16 @@
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Home } from './Home/Home';
 import { Movies } from './Movies/Movies';
-import styled from 'styled-components';
+import { Navigation } from './Navigation/Navigation';
+// import styled from 'styled-components';
 
-const StyledLink = styled(NavLink)`
-  color: black;
+// const StyledLink = styled(NavLink)`
+//   color: black;
 
-  &.active {
-    color: red;
-  }
-`;
+//   &.active {
+//     color: red;
+//   }
+// `;
 
 export const App = () => {
   return (
@@ -24,12 +25,13 @@ export const App = () => {
         color: '#010101',
       }}
     >
-      <nav>
+      {/* <nav>
         <StyledLink to="/" end>
           HOME
         </StyledLink>
         <StyledLink to="/movies">MOVIES</StyledLink>
-      </nav>
+      </nav> */}
+      <Navigation />
 
       <Routes>
         <Route path="/" element={<Home />} />
