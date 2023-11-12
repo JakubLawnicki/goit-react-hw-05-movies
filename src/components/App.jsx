@@ -2,21 +2,12 @@ import { Routes, Route } from 'react-router-dom';
 import { Home } from './Home/Home';
 import { Movies } from './Movies/Movies';
 import { Navigation } from './Navigation/Navigation';
-// import styled from 'styled-components';
-
-// const StyledLink = styled(NavLink)`
-//   color: black;
-
-//   &.active {
-//     color: red;
-//   }
-// `;
 
 export const App = () => {
   return (
     <div
       style={{
-        height: '100vh',
+        // height: '100vh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -25,12 +16,6 @@ export const App = () => {
         color: '#010101',
       }}
     >
-      {/* <nav>
-        <StyledLink to="/" end>
-          HOME
-        </StyledLink>
-        <StyledLink to="/movies">MOVIES</StyledLink>
-      </nav> */}
       <Navigation />
 
       <Routes>
