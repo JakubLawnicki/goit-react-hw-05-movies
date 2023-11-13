@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, Link } from 'react';
 import axios from 'axios';
 
 export const Movies = () => {
@@ -58,23 +58,26 @@ export const Movies = () => {
       >
         {movies.map(movie => {
           const imgUrl = `https://www.themoviedb.org/t/p/w500${movie.poster_path}`;
+          const movieId = movie.id;
           return (
-            <li key={movie.id}>
-              <p
-                style={{
-                  fontSize: 14,
-                }}
-              >
-                {movie.title}
-              </p>
-              <img
-                style={{
-                  width: 200,
-                  height: 300,
-                }}
-                src={imgUrl}
-                alt={movie.title}
-              />
+            <li key={movie.id} onClick={() => console.log(movie.id)}>
+              <Link to={`${movieId}`}>
+                <p
+                  style={{
+                    fontSize: 14,
+                  }}
+                >
+                  {movie.title}
+                </p>
+                <img
+                  style={{
+                    width: 200,
+                    height: 300,
+                  }}
+                  src={imgUrl}
+                  alt={movie.title}
+                />
+              </Link>
             </li>
           );
         })}
