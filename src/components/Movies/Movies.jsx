@@ -1,4 +1,5 @@
-import { useState, Link } from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export const Movies = () => {
@@ -60,7 +61,7 @@ export const Movies = () => {
           const imgUrl = `https://www.themoviedb.org/t/p/w500${movie.poster_path}`;
           const movieId = movie.id;
           return (
-            <li key={movie.id} onClick={() => console.log(movie.id)}>
+            <li key={movie.id}>
               <Link to={`${movieId}`}>
                 <p
                   style={{
