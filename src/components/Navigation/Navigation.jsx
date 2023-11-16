@@ -1,9 +1,16 @@
 import styled from 'styled-components';
+import style from './navigation.module.css';
 import { NavLink } from 'react-router-dom';
 
 const StyledLink = styled(NavLink)`
-  padding: 20px;
   color: black;
+  text-decoration: none;
+  padding: 5px;
+
+  &:hover {
+    background-color: blue;
+    color: white;
+  }
 
   &.active {
     color: red;
@@ -12,7 +19,7 @@ const StyledLink = styled(NavLink)`
 
 export const Navigation = () => {
   return (
-    <nav>
+    <nav className={style.navigation}>
       <StyledLink to="/" end>
         HOME
       </StyledLink>

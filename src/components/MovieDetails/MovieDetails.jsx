@@ -1,6 +1,18 @@
-import { useParams } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
+import style from './movieDetails.module.css';
 import { useState, useEffect } from 'react';
+
+const StyledLink = styled(NavLink)`
+  color: black;
+  text-decoration: none;
+  font-size: 18px;
+
+  &:hover {
+    color: red;
+  }
+`;
 
 export const MovieDetails = () => {
   const { movieId } = useParams();
@@ -31,12 +43,28 @@ export const MovieDetails = () => {
   }, [movieId]);
 
   return (
-    <div>
-      <h2>
-        {details.title} {`(${details.release_date?.slice(0, 4)})`}
-      </h2>
-      <p>User Score: {details.popularity?.toFixed(1)}%</p>
-      <img src={poster} alt="" />
+    <div className={style.wrapper}>
+      <img className={style.poster} src={poster} alt={details.title} />
+      <div className={style.info}>
+        <h2 className={style.title}>
+          {details.title} {`(${details.release_date?.slice(0, 4)})`}
+        </h2>
+        <p className={style.popularity}>
+          User Score: {details.popularity?.toFixed(1)}%
+        </p>
+        <h3 className={style.subtitle}>Overview</h3>
+        <p className={style.overview}>{details.overview}</p>
+        <h3 className={style.subtitle}>Genres</h3>
+        <p className={style.genres}>
+          {details.genres?.map(genre => genre.name).join(', ')}
+        </p>
+        <div className={style.separator}></div>
+        <h3 className={style.subtitle}>Additional information</h3>
+        <div className={style.links}>
+          <StyledLink to="/movies/:movieId/cast">Cast</StyledLink>
+          <StyledLink to="/movies/:movieId/reviews">Reviews</StyledLink>
+        </div>
+      </div>
     </div>
   );
 };
