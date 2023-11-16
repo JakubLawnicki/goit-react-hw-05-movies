@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import style from './movies.module.css';
 import axios from 'axios';
 
 export const Movies = () => {
@@ -25,15 +26,17 @@ export const Movies = () => {
   };
 
   return (
-    <div>
-      <form action="">
+    <div className={style.wrapper}>
+      <form className={style.form}>
         <input
+          className={style.searchbar}
           type="text"
           onChange={e => {
             setMovieName(e.target.value);
           }}
         />
         <button
+          className={style.button}
           type="submit"
           onClick={e => {
             e.preventDefault();
@@ -43,41 +46,15 @@ export const Movies = () => {
           Search
         </button>
       </form>
-      <ul
-        style={{
-          display: 'grid',
-          maxWidth: 'calc(100vw - 48px)',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-          gridGap: 16,
-          marginTop: 30,
-          marginBottom: 0,
-          padding: 0,
-          listStyle: 'none',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-        }}
-      >
+      <ul className={style['movie-list']}>
         {movies.map(movie => {
           const imgUrl = `https://www.themoviedb.org/t/p/w500${movie.poster_path}`;
           const movieId = movie.id;
           return (
-            <li key={movie.id}>
+            <li className={style.item} key={movie.id}>
               <Link to={`${movieId}`}>
-                <p
-                  style={{
-                    fontSize: 14,
-                  }}
-                >
-                  {movie.title}
-                </p>
-                <img
-                  style={{
-                    width: 200,
-                    height: 300,
-                  }}
-                  src={imgUrl}
-                  alt={movie.title}
-                />
+                <p className={style.title}>{movie.title}</p>
+                <img className={style.poster} src={imgUrl} alt={movie.title} />
               </Link>
             </li>
           );
