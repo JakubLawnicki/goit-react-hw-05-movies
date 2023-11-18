@@ -1,4 +1,4 @@
-import { useParams, NavLink } from 'react-router-dom';
+import { useParams, NavLink, Outlet } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import style from './movieDetails.module.css';
@@ -61,9 +61,10 @@ export const MovieDetails = () => {
         <div className={style.separator}></div>
         <h3 className={style.subtitle}>Additional information</h3>
         <div className={style.links}>
-          <StyledLink to="/movies/:movieId/cast">Cast</StyledLink>
-          <StyledLink to="/movies/:movieId/reviews">Reviews</StyledLink>
+          <StyledLink to="cast">Cast</StyledLink>
+          <StyledLink to="reviews">Reviews</StyledLink>
         </div>
+        <Outlet />
       </div>
     </div>
   );
