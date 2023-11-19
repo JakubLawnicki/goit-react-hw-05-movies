@@ -46,6 +46,10 @@ export const MovieDetails = () => {
     fetchMovieDetails();
   }, [movieId]);
 
+  if (!details.title) {
+    return <p>Ups... There are no details available.</p>;
+  }
+
   return (
     <div className={style.wrapper}>
       <div className={style.details}>
