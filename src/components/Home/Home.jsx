@@ -1,6 +1,7 @@
 import axios from 'axios';
 import style from './home.module.css';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 export const Home = () => {
   const [popular, setPopular] = useState([]);
@@ -25,10 +26,16 @@ export const Home = () => {
     <ul className={style['popular-list']}>
       {popular.map(movie => {
         const imgUrl = `https://www.themoviedb.org/t/p/w500${movie.poster_path}`;
+        const movieId = movie.id;
+        const title = movie.title
+          ? movie.title
+          : 'Ups... There is no title available.';
         return (
           <li className={style.item} key={movie.id}>
-            <p className={style.title}>{movie.title}</p>
-            <img className={style.poster} src={imgUrl} alt={movie.title} />
+            <Link to={`/movies/${movieId}`}>
+              <p className={style.title}>{title}</p>
+              <img className={style.poster} src={imgUrl} alt={movie.title} />
+            </Link>
           </li>
         );
       })}
