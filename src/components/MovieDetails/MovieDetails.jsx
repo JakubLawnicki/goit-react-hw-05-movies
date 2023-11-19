@@ -9,6 +9,10 @@ const StyledLink = styled(NavLink)`
   text-decoration: none;
   font-size: 18px;
 
+  &.active {
+    color: red;
+  }
+
   &:hover {
     color: red;
   }
@@ -44,28 +48,30 @@ export const MovieDetails = () => {
 
   return (
     <div className={style.wrapper}>
-      <img className={style.poster} src={poster} alt={details.title} />
-      <div className={style.info}>
-        <h2 className={style.title}>
-          {details.title} {`(${details.release_date?.slice(0, 4)})`}
-        </h2>
-        <p className={style.popularity}>
-          User Score: {details.popularity?.toFixed(1)}%
-        </p>
-        <h3 className={style.subtitle}>Overview</h3>
-        <p className={style.overview}>{details.overview}</p>
-        <h3 className={style.subtitle}>Genres</h3>
-        <p className={style.genres}>
-          {details.genres?.map(genre => genre.name).join(', ')}
-        </p>
-        <div className={style.separator}></div>
-        <h3 className={style.subtitle}>Additional information</h3>
-        <div className={style.links}>
-          <StyledLink to="cast">Cast</StyledLink>
-          <StyledLink to="reviews">Reviews</StyledLink>
+      <div className={style.details}>
+        <img className={style.poster} src={poster} alt={details.title} />
+        <div className={style.info}>
+          <h2 className={style.title}>
+            {details.title} {`(${details.release_date?.slice(0, 4)})`}
+          </h2>
+          <p className={style.popularity}>
+            User Score: {details.popularity?.toFixed(1)}%
+          </p>
+          <h3 className={style.subtitle}>Overview</h3>
+          <p className={style.overview}>{details.overview}</p>
+          <h3 className={style.subtitle}>Genres</h3>
+          <p className={style.genres}>
+            {details.genres?.map(genre => genre.name).join(', ')}
+          </p>
+          <div className={style.separator}></div>
+          <h3 className={style.subtitle}>Additional information</h3>
+          <div className={style.links}>
+            <StyledLink to="cast">Cast</StyledLink>
+            <StyledLink to="reviews">Reviews</StyledLink>
+          </div>
         </div>
-        <Outlet />
       </div>
+      <Outlet />
     </div>
   );
 };

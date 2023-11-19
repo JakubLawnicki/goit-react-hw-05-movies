@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import style from './cast.module.css';
 
 export const Cast = () => {
   const { movieId } = useParams();
-  const [cast, setCast] = useState({});
+  const [cast, setCast] = useState([]);
 
   useEffect(() => {
     const fetchCast = async () => {
@@ -30,16 +31,19 @@ export const Cast = () => {
   }, [movieId]);
 
   return (
-    <ul>
-      {cast?.map(actor => {
-        const photo = `https://www.themoviedb.org/t/p/w500${actor.profile_path}`;
-        return (
-          <li>
-            <img src={photo} alt={actor.name} />
-            <p>{actor.name}</p>
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      <div className={style.separator}></div>
+      <ul className={style['cast-list']}>
+        {cast?.map(actor => {
+          const photo = `https://www.themoviedb.org/t/p/w500${actor.profile_path}`;
+          return (
+            <li className={style.item}>
+              <img src={photo} alt={actor.name} />
+              <p>{actor.name}</p>
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 };
