@@ -1,10 +1,11 @@
 import axios from 'axios';
 import style from './home.module.css';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-export const Home = () => {
+const Home = () => {
   const [popular, setPopular] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
     axios
@@ -32,7 +33,7 @@ export const Home = () => {
           : 'Ups... There is no title available.';
         return (
           <li className={style.item} key={movie.id}>
-            <Link to={`/movies/${movieId}`}>
+            <Link to={`/movies/${movieId}`} state={{ from: location }}>
               <p className={style.title}>{title}</p>
               <img className={style.poster} src={imgUrl} alt={movie.title} />
             </Link>
@@ -42,3 +43,5 @@ export const Home = () => {
     </ul>
   );
 };
+
+export default Home;

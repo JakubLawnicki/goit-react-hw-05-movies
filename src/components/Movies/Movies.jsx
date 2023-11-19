@@ -1,48 +1,53 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import style from './movies.module.css';
 import axios from 'axios';
 
-export const Movies = () => {
+const Movies = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [movies, setMovies] = useState([]);
-  const [movieName, setMovieName] = useState('');
+  const location = useLocation();
+  const query = searchParams.get('query');
 
-  const fetchMovies = () => {
-    axios
-      .get(`https://api.themoviedb.org/3/search/movie`, {
-        params: {
-          query: `${movieName}`,
-          language: 'en-US',
-          page: 1,
-          api_key: 'c90cdec037818042646f6ab3cec9ea66',
-        },
-        headers: {
-          accept: 'application/json',
-        },
-      })
-      .then(film => {
-        setMovies(film.data.results);
-      });
+  const fetchMovies = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/search/movie`,
+        {
+          params: {
+            query: `${query}`,
+            language: 'en-US',
+            page: 1,
+            api_key: 'c90cdec037818042646f6ab3cec9ea66',
+          },
+          headers: {
+            accept: 'application/json',
+          },
+        }
+      );
+      setMovies(response.data.results);
+    } catch (error) {
+      console.error('Error fetching movie details:', error);
+    }
   };
 
   return (
     <div className={style.wrapper}>
-      <form className={style.form}>
+      <form
+        className={style.form}
+        onSubmit={e => {
+          e.preventDefault();
+          fetchMovies();
+        }}
+      >
         <input
           className={style.searchbar}
           type="text"
           onChange={e => {
-            setMovieName(e.target.value);
+            setSearchParams({ query: e.target.value });
           }}
         />
-        <button
-          className={style.button}
-          type="submit"
-          onClick={e => {
-            e.preventDefault();
-            fetchMovies();
-          }}
-        >
+        <button className={style.button} type="submit">
           Search
         </button>
       </form>
@@ -55,7 +60,7 @@ export const Movies = () => {
             : 'Ups... There is no title available.';
           return (
             <li className={style.item} key={movie.id}>
-              <Link to={`${movieId}`}>
+              <Link to={`${movieId}`} state={{ from: location }}>
                 <p className={style.title}>{title}</p>
                 <img className={style.poster} src={imgUrl} alt={movie.title} />
               </Link>
@@ -66,3 +71,5 @@ export const Movies = () => {
     </div>
   );
 };
+
+export default Movies;

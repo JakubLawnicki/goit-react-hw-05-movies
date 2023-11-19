@@ -1,3 +1,16 @@
+.button {
+  background-color: blue;
+  border: 0;
+  border-radius: 4px;
+  padding: 5px;
+}
+.button a {
+  color: white;
+  text-decoration: none;
+}
+.button:hover {
+  cursor: pointer;
+}
 .details {
   display: flex;
 }

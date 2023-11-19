@@ -17,7 +17,7 @@ const StyledLink = styled(NavLink)`
   }
 `;
 
-export const Navigation = () => {
+const Navigation = () => {
   return (
     <nav className={style.navigation}>
       <StyledLink to="/" end>
@@ -27,3 +27,5 @@ export const Navigation = () => {
     </nav>
   );
 };
+
+export default Navigation;

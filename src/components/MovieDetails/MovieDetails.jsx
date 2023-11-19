@@ -1,4 +1,10 @@
-import { useParams, NavLink, Outlet } from 'react-router-dom';
+import {
+  useParams,
+  NavLink,
+  Outlet,
+  Link,
+  useLocation,
+} from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import style from './movieDetails.module.css';
@@ -18,10 +24,12 @@ const StyledLink = styled(NavLink)`
   }
 `;
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const { movieId } = useParams();
   const [details, setDetails] = useState({});
+  const location = useLocation();
   const poster = `https://www.themoviedb.org/t/p/w500${details.poster_path}`;
+  const goBack = location.state?.from ?? '/movies';
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -55,6 +63,9 @@ export const MovieDetails = () => {
       <div className={style.details}>
         <img className={style.poster} src={poster} alt={details.title} />
         <div className={style.info}>
+          <button className={style.button} type="button">
+            <Link to={goBack}>&#x3c; Go back</Link>
+          </button>
           <h2 className={style.title}>
             {details.title} {`(${details.release_date?.slice(0, 4)})`}
           </h2>
@@ -79,3 +90,5 @@ export const MovieDetails = () => {
     </div>
   );
 };
+
+export default MovieDetails;
